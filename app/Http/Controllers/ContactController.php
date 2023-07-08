@@ -36,7 +36,10 @@ class ContactController extends Controller
             'name' => 'required|string|max:255',
             'mobile' => 'required|string|max:255',
             'email' => 'required|string|max:255',
-            'group' => 'required|string|max:255',
+            'group' => [
+                'city' => 'required|string|max:255',
+                'country' => 'required|string|max:255',
+            ]
         ]);
 
         $request->user()->chirps()->create($validated);

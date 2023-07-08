@@ -53,5 +53,8 @@
 
             <x-primary-button class="mt-4">{{ __('Contact') }}</x-primary-button>
         </form>
+
+
     </div>
+
 </x-app-layout>
