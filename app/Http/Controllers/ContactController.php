@@ -20,6 +20,9 @@ class ContactController extends Controller
         return view('index', [
             'contacts' => Contact::with('user')->latest()->get(),
         ]);
+        // return view('dashboard', [
+        //     'contacts' => Contact::with('user')->latest()->get(),
+        // ]);
 
         // dd( view('dashboard', [
         //     'contacts' => Contact::with('user')->latest()->get(),
@@ -36,6 +39,7 @@ class ContactController extends Controller
     public function create()
     {
         //
+        return View('addcontact');
     }
 
     /**
@@ -44,26 +48,17 @@ class ContactController extends Controller
     public function store(Request $request) : RedirectResponse
     {
 
-        // $validated = $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'mobile' => 'required|string|max:255|unique',
-        //     'email' => 'required|string|max:255',
-        //     'group' => [
-        //         'city' => 'string|max:255',
-        //         'country' => 'string|max:255',
-        //     ]
-        // ]);
 
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'mobile' => 'string|required|unique:posts|max:255',
-            'email' => 'string|max:255',
-            'group' => 'string|max:255',
+            'name' => 'required|string|max:50',
+            'mobile' => 'string|required|unique:contacts|max:15',
+            'email' => 'string|max:50',
+            'group' => 'string|max:50',
         ]);
 
-        dd($validated);
+        //dd($validated);
 
-       // $request->user()->chirps()->create($validated);
+        $request->user()->contacts()->create($validated);
 
         return redirect(route('contract.index'));
     }

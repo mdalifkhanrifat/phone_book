@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     public function contacts(): HasMany
     {
-        return $this->hasMany(Chirp::class);
+        return $this->hasMany(Contact::class);
     }
 
 }
