@@ -15,12 +15,9 @@ class Contact extends Model
         'name',
         'mobile',
         'email',
-        'others',
+        'group',
     ];
-    public function Contacts(): HasMany
-    {
-        return $this->hasMany(Contact::class);
-    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
