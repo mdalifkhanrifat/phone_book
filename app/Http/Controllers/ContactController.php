@@ -79,7 +79,7 @@ class ContactController extends Controller
     {
 
         dd($contact);
-        $this->authorize('update', $contact);
+        //$this->authorize('update', $contact);
         //dd($contact);
 
         return view('edit', [
