@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Inertia\Inertia;
+use App\Providers\ContactPolicy;
 
 
 class ContactController extends Controller
@@ -28,23 +31,6 @@ class ContactController extends Controller
         //dd($contacts);
 
         return view('index', compact('contacts'));
-
-
-
-        // return view('index', [
-        //     'contacts' => Contact::with('user')->latest()->get(),
-        //     // 'contacts' => Contact::with('user')->latest()->get()->paginate(15),
-        // ]);
-        // return view('dashboard', [
-        //     'contacts' => Contact::with('user')->latest()->get(),
-        // ]);
-
-        // dd( view('dashboard', [
-        //     'contacts' => Contact::with('user')->latest()->get(),
-        // ]));
-
-        // $contacts= Contact::all();
-        // return View('dashboard', compact('contacts'));
 
     }
 
@@ -89,17 +75,37 @@ class ContactController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Contact $contact)
+    public function edit(Contact $contact) : View
     {
-        //
+
+        dd($contact);
+        $this->authorize('update', $contact);
+        //dd($contact);
+
+        return view('edit', [
+            'contract' => $contact,
+        ]);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Contact $contact)
+    public function update(Request $request, Contact $contact) : RedirectResponse
     {
-        //
+        //$this->authorize('update', $contact);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:50',
+            'mobile' => 'string|required|unique:contacts|max:15',
+            'email' => 'max:50',
+            'group' => 'max:50',
+        ]);
+
+
+        $contact->update($validated);
+
+        return redirect(route('contract.index'));
     }
 
     /**

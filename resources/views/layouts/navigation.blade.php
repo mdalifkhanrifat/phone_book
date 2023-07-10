@@ -30,8 +30,10 @@
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
 
                     <div class="container-fluid ">
-                        <form class="d-flex">
-                          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <form type="get"  action="{{ route('search.view') }}" class="d-flex">
+
+                            {{-- @method('GET') --}}
+                          <input class="form-control me-2" name="query" type="search" placeholder="Search" aria-label="Search">
                           <button class="btn btn-outline-secondary" type="submit">Search</button>
                         </form>
                       </div>

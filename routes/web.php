@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +33,8 @@ Route::middleware('auth')->group(function () {
 Route::resource('contract', ContactController::class)
     ->middleware(['auth', 'verified']);
 
+
+    Route::get('/search', [SearchController::class, 'view'] )->middleware(['auth', 'verified'])->name('search.view');
 
 
 require __DIR__.'/auth.php';
