@@ -4,9 +4,13 @@
     <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
 
 
+        <h3 class="text-center">
+            {{ 'Contact List' }}
+        </h3>
 
         <table class="table">
             <thead>
+
                 <tr>
                     <th>Name</th>
                     <th>Mobile</th>
@@ -43,17 +47,21 @@
                                     </x-slot>
                                 </x-dropdown>
                             @endif
-                            
+
                         </td>
                     </tr>
                 @endforeach
             </tbody>
-                {{ $contacts->links() }}
+
+            {{ $contacts->links() }}
 
         </table>
-
-
-
     </div>
+
+    @if ($contacts != null)
+        <h3 class="text-center">
+            {{ 'Contact list is empty' }}
+        </h3>
+    @endif
 
 </x-app-layout>
