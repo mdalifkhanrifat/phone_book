@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -17,9 +19,22 @@ class ContactController extends Controller
     {
         // $contacts => Contact::with('user')->latest()->get();
 
-        return view('index', [
-            'contacts' => Contact::with('user')->latest()->get(),
-        ]);
+        $user = Auth::user();
+        $users=$user->id;
+
+
+
+        $contacts= Contact::where('user_id', $users)->paginate(10);
+        //dd($contacts);
+
+        return view('index', compact('contacts'));
+
+
+
+        // return view('index', [
+        //     'contacts' => Contact::with('user')->latest()->get(),
+        //     // 'contacts' => Contact::with('user')->latest()->get()->paginate(15),
+        // ]);
         // return view('dashboard', [
         //     'contacts' => Contact::with('user')->latest()->get(),
         // ]);
@@ -52,8 +67,8 @@ class ContactController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:50',
             'mobile' => 'string|required|unique:contacts|max:15',
-            'email' => 'string|max:50',
-            'group' => 'string|max:50',
+            'email' => 'max:50',
+            'group' => 'max:50',
         ]);
 
         //dd($validated);
